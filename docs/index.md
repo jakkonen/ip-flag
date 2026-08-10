@@ -1,5 +1,9 @@
 # IP Flag
 
-IP Flag показывает публичные IPv4/IPv6-адреса браузера и страну выхода в интернет.
+IP Flag shows the browser's public IPv4/IPv6 addresses and internet egress country.
 
-[Политика конфиденциальности](privacy.html)
+## Privacy policy
+
+- [English](privacy.html)
+- [Suomi](privacy-fi.html)
+- [Русский](privacy-ru.html)

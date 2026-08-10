@@ -1,33 +1,35 @@
-# Политика конфиденциальности IP Flag
+# IP Flag Privacy Policy
 
-Дата вступления в силу: 11 августа 2026 года.
+Effective date: August 11, 2026.
 
-IP Flag — браузерное расширение для локального отображения того, как браузер выглядит в интернете: публичных IPv4/IPv6-адресов, страны и сетевой организации.
+[Suomi](privacy-fi.html) · [Русский](privacy-ru.html)
 
-## Какие данные обрабатываются
+IP Flag is a browser extension that locally shows how the browser appears on the internet: its public IPv4/IPv6 addresses, egress country, and network organization.
 
-Расширение обращается к внешним сервисам, чтобы определить публичные IPv4- и IPv6-адреса браузера. Затем эти адреса передаются сервису GeoIP для определения страны и сетевой организации.
+## Data processed
 
-В текущей версии используются следующие сервисы:
+The extension contacts external services to determine the browser's public IPv4 and IPv6 addresses. It then sends those addresses to a GeoIP service to determine the country and network organization.
 
-- `api.ipify.org` — публичный IPv4;
-- `api6.ipify.org` — публичный IPv6;
-- `api.ipapi.is` — страна, ASN и название сетевой организации.
+The current version uses these services:
 
-## Какие данные не собираются
+- `api.ipify.org` for public IPv4;
+- `api6.ipify.org` for public IPv6;
+- `api.ipapi.is` for country, ASN, and network organization.
 
-IP Flag не запрашивает и не получает историю браузера, посещённые URL, содержимое страниц, cookies, поисковые запросы, пароли, данные аккаунтов или точную геолокацию устройства.
+## Data not collected
 
-Расширение не использует аналитику, рекламу, telemetry, облачную синхронизацию или сервер разработчика.
+IP Flag does not request or access browsing history, visited URLs, page content, cookies, search queries, passwords, account data, or the device's precise location.
 
-## Локальное хранение
+The extension does not use analytics, advertising, telemetry, cloud synchronization, or a developer-operated backend.
 
-Текущее сетевое состояние, выбранный стиль флага и небольшой GeoIP-кэш сохраняются только в локальном хранилище браузера. GeoIP-кэш хранится до 24 часов и содержит не более 50 IP-адресов.
+## Local storage
 
-## Передача данных
+The current network state, selected flag style, and a small GeoIP cache are stored only in the browser's local extension storage. The GeoIP cache is retained for up to 24 hours and contains no more than 50 IP addresses.
 
-Публичный IP-адрес передаётся перечисленным выше внешним сервисам только для выполнения основной функции расширения. Передача выполняется по HTTPS.
+## Data transfer
 
-## Изменения политики
+A public IP address is sent to the services listed above only to provide the extension's core functionality. Transfers use HTTPS.
 
-При существенном изменении обработки данных эта страница будет обновлена вместе с новой версией расширения.
+## Changes to this policy
+
+This page will be updated together with a new extension version if data handling changes materially.
