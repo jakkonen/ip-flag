@@ -1,0 +1,9 @@
+node_modules/
+dist/
+public/flags/*
+!public/flags/.gitkeep
+*.log
+.DS_Store
+.idea/
+.vscode/
+AGENTS.md

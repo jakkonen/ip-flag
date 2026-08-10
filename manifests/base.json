@@ -1,0 +1,27 @@
+{
+  "manifest_version": 3,
+  "name": "IP Flag — Public IP & VPN Country",
+  "short_name": "IP Flag",
+  "version": "0.1.0",
+  "description": "See your public IPv4/IPv6 and country at a glance and spot country mismatches when using a VPN or proxy.",
+  "permissions": ["storage", "alarms"],
+  "host_permissions": [
+    "https://api.ipify.org/*",
+    "https://api6.ipify.org/*",
+    "https://api.ipapi.is/*"
+  ],
+  "action": {
+    "default_title": "IP Flag",
+    "default_popup": "src/popup/popup.html",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "32": "icons/icon-32.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  }
+}

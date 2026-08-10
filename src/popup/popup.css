@@ -1,0 +1,135 @@
+:root {
+  color-scheme: light dark;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 340px;
+  background: Canvas;
+  color: CanvasText;
+}
+
+button,
+select {
+  font: inherit;
+}
+
+.panel {
+  padding: 14px;
+}
+
+.header,
+.ip-card__head,
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.brand {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.status,
+.checked,
+.network {
+  color: color-mix(in srgb, CanvasText 58%, transparent);
+  font-size: 12px;
+}
+
+.icon-button {
+  width: 32px;
+  height: 32px;
+  border: 1px solid color-mix(in srgb, CanvasText 18%, transparent);
+  border-radius: 9px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.icon-button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.warning {
+  margin-top: 12px;
+  padding: 9px 10px;
+  border: 1px solid #d97706;
+  border-radius: 9px;
+  font-size: 12px;
+}
+
+.addresses {
+  display: grid;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.ip-card {
+  padding: 11px;
+  border: 1px solid color-mix(in srgb, CanvasText 16%, transparent);
+  border-radius: 11px;
+}
+
+.ip-card__head {
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.flag {
+  width: 24px;
+  height: 24px;
+  object-fit: cover;
+}
+
+.country {
+  margin-top: 5px;
+  font-size: 15px;
+  font-weight: 650;
+}
+
+.address {
+  display: block;
+  max-width: 100%;
+  margin: 5px 0 3px;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 12px;
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: copy;
+}
+
+.footer {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid color-mix(in srgb, CanvasText 12%, transparent);
+}
+
+.style-control {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+}
+
+select {
+  padding: 3px 6px;
+  border-radius: 7px;
+}
+
+.hidden {
+  display: none;
+}
