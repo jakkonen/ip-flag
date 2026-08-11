@@ -9,7 +9,7 @@
 
 body {
   margin: 0;
-  min-width: 340px;
+  min-width: 360px;
   background: Canvas;
   color: CanvasText;
 }
@@ -24,20 +24,53 @@ select {
 }
 
 .header,
-.ip-card__head,
-.footer {
+.ip-card__head {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 12px;
 }
 
+.header,
+.ip-card__head {
+  justify-content: space-between;
+}
+
+.header {
+  align-items: flex-start;
+}
+
 .brand {
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 700;
 }
 
-.status,
+.header-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 4px;
+}
+
+.status {
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: color-mix(in srgb, CanvasText 10%, transparent);
+  color: color-mix(in srgb, CanvasText 72%, transparent);
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.status[data-status='mismatch'] {
+  background: color-mix(in srgb, #d97706 20%, transparent);
+  color: #a84f00;
+}
+
+.status[data-status='offline'] {
+  background: color-mix(in srgb, #b91c1c 16%, transparent);
+  color: #a41414;
+}
+
 .checked,
 .network {
   color: color-mix(in srgb, CanvasText 58%, transparent);
@@ -73,9 +106,15 @@ select {
 }
 
 .ip-card {
-  padding: 11px;
+  padding: 13px;
   border: 1px solid color-mix(in srgb, CanvasText 16%, transparent);
   border-radius: 11px;
+}
+
+.ip-card--unavailable {
+  padding: 10px 13px;
+  border-color: color-mix(in srgb, CanvasText 10%, transparent);
+  background: color-mix(in srgb, CanvasText 3%, transparent);
 }
 
 .ip-card__head {
@@ -84,15 +123,20 @@ select {
 }
 
 .flag {
-  width: 24px;
-  height: 24px;
+  width: 30px;
+  height: 30px;
   object-fit: cover;
 }
 
 .country {
   margin-top: 5px;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 650;
+}
+
+.ip-card--unavailable .country {
+  font-size: 14px;
+  font-weight: 600;
 }
 
 .address {
@@ -102,7 +146,8 @@ select {
   white-space: nowrap;
   margin: 5px 0 3px;
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: 12px;
+  font-size: 16px;
+  font-weight: 650;
 }
 
 .address-row {
@@ -113,12 +158,12 @@ select {
 
 .copy-button {
   flex: 0 0 auto;
-  padding: 3px 7px;
+  padding: 3px 6px;
   border: 1px solid color-mix(in srgb, CanvasText 20%, transparent);
   border-radius: 6px;
   background: transparent;
   color: inherit;
-  font-size: 11px;
+  font-size: 10px;
   cursor: pointer;
 }
 
@@ -131,6 +176,15 @@ select {
   margin-top: 12px;
   padding-top: 10px;
   border-top: 1px solid color-mix(in srgb, CanvasText 12%, transparent);
+}
+
+.appearance-label {
+  margin-bottom: 5px;
+  color: color-mix(in srgb, CanvasText 58%, transparent);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
 .style-control {

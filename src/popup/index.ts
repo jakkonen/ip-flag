@@ -22,20 +22,25 @@ function formatNetwork(ip?: IpState): string {
 
 function renderIp(prefix: 'ipv4' | 'ipv6', ip: IpState | undefined, style: FlagStyle): void {
   const flag = $<HTMLImageElement>(`${prefix}-flag`);
+  const card = $(`${prefix}-card`);
   const country = $(`${prefix}-country`);
   const address = $(`${prefix}-address`);
   const copyButton = $<HTMLButtonElement>(`${prefix}-copy`);
   const network = $(`${prefix}-network`);
 
   if (!ip) {
+    card.classList.add('ip-card--unavailable');
     flag.classList.add('hidden');
     country.textContent = 'Not available';
     address.textContent = '—';
     address.dataset.value = '';
     copyButton.disabled = true;
+    copyButton.hidden = true;
     network.textContent = '';
     return;
   }
+
+  card.classList.remove('ip-card--unavailable');
 
   if (ip.countryCode) {
     flag.src = flagUrl(ip.countryCode, style);
@@ -50,6 +55,7 @@ function renderIp(prefix: 'ipv4' | 'ipv6', ip: IpState | undefined, style: FlagS
   address.textContent = ip.address;
   address.dataset.value = ip.address;
   copyButton.disabled = false;
+  copyButton.hidden = false;
   network.textContent = formatNetwork(ip);
 }
 
@@ -70,6 +76,7 @@ function statusText(state: NetworkState): string {
 function render(state: NetworkState): void {
   const style = flagStyle.value as FlagStyle;
   statusEl.textContent = statusText(state);
+  statusEl.dataset.status = state.status;
   warningEl.classList.toggle('hidden', state.status !== 'mismatch');
   renderIp('ipv4', state.ipv4, style);
   renderIp('ipv6', state.ipv6, style);

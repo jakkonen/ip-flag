@@ -9,9 +9,12 @@
   <body>
     <main class="panel">
       <header class="header">
-        <div>
+        <div class="heading">
           <div class="brand">My IP — VPN Location</div>
-          <div id="status" class="status">Checking…</div>
+          <div class="header-meta">
+            <span id="status" class="status">Checking…</span>
+            <span id="checked" class="checked"></span>
+          </div>
         </div>
         <button id="refresh" class="icon-button" type="button" title="Check now">↻</button>
       </header>
@@ -21,7 +24,7 @@
       </section>
 
       <section class="addresses">
-        <article class="ip-card">
+        <article id="ipv4-card" class="ip-card">
           <div class="ip-card__head">
             <span>IPv4</span>
             <img id="ipv4-flag" class="flag hidden" alt="" />
@@ -34,7 +37,7 @@
           <div id="ipv4-network" class="network"></div>
         </article>
 
-        <article class="ip-card">
+        <article id="ipv6-card" class="ip-card">
           <div class="ip-card__head">
             <span>IPv6</span>
             <img id="ipv6-flag" class="flag hidden" alt="" />
@@ -49,14 +52,16 @@
       </section>
 
       <footer class="footer">
-        <label class="style-control">
-          Flag
-          <select id="flag-style">
-            <option value="round">Round</option>
-            <option value="rectangle">Rectangle</option>
-          </select>
-        </label>
-        <span id="checked" class="checked"></span>
+        <div>
+          <div class="appearance-label">Appearance</div>
+          <label class="style-control">
+            Flag shape
+            <select id="flag-style">
+              <option value="round">Round</option>
+              <option value="rectangle">Rectangle</option>
+            </select>
+          </label>
+        </div>
       </footer>
     </main>
   </body>
