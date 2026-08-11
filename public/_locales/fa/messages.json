@@ -1,0 +1,5 @@
+{
+  "extensionName": { "message": "IP Flag — آی‌پی عمومی و کشور VPN" },
+  "extensionDescription": { "message": "نشانی‌های عمومی IPv4/IPv6 مرورگر و کشور خروج را یک‌جا ببینید و تفاوت کشور هنگام استفاده از VPN یا پراکسی را تشخیص دهید." },
+  "actionTitle": { "message": "IP Flag" }
+}

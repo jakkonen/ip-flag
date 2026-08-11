@@ -1,0 +1,5 @@
+{
+  "extensionName": { "message": "IP Flag — Public IP & VPN Country" },
+  "extensionDescription": { "message": "See your public IPv4/IPv6 and country at a glance, and spot country mismatches when using a VPN or proxy." },
+  "actionTitle": { "message": "IP Flag" }
+}

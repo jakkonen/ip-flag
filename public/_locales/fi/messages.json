@@ -1,0 +1,5 @@
+{
+  "extensionName": { "message": "IP Flag — Julkinen IP ja VPN-maa" },
+  "extensionDescription": { "message": "Näe selaimesi julkiset IPv4/IPv6-osoitteet ja lähtömaa yhdellä silmäyksellä sekä havaitse VPN:n tai välityspalvelimen aiheuttamat maaerot." },
+  "actionTitle": { "message": "IP Flag" }
+}

@@ -19,6 +19,7 @@
 
 ## Later, only if justified
 
+- Optional local GeoIP database: bundle periodically updated IPv4/IPv6 country and ASN ranges so that GeoIP lookups do not send a public IP to an external provider. Keep external requests only for public IP detection; evaluate database size, update process, and license attribution before implementation.
 - DNS leak checks
 - WebRTC leak checks
 - expected-country alert

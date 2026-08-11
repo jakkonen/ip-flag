@@ -1,0 +1,5 @@
+{
+  "extensionName": { "message": "IP Flag — публичный IP и страна VPN" },
+  "extensionDescription": { "message": "Просматривайте публичные IPv4/IPv6 и страну выхода в интернет, а также замечайте расхождения стран при использовании VPN или прокси." },
+  "actionTitle": { "message": "IP Flag" }
+}

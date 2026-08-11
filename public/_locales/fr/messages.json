@@ -1,0 +1,5 @@
+{
+  "extensionName": { "message": "IP Flag — IP publique et pays du VPN" },
+  "extensionDescription": { "message": "Consultez d’un coup d’œil les IPv4/IPv6 publiques et le pays de sortie, et repérez les divergences de pays avec un VPN ou un proxy." },
+  "actionTitle": { "message": "IP Flag" }
+}

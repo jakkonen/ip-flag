@@ -1,0 +1,5 @@
+{
+  "extensionName": { "message": "IP Flag — パブリック IP と VPN の国" },
+  "extensionDescription": { "message": "ブラウザのパブリック IPv4/IPv6 アドレスと接続元の国をすばやく確認し、VPN やプロキシ使用時の国の不一致を見つけます。" },
+  "actionTitle": { "message": "IP Flag" }
+}
