@@ -1,6 +1,6 @@
 {
   "name": "ip-flag",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "private": true,
   "type": "module",
   "scripts": {
@@ -8,8 +8,9 @@
     "dev:chromium": "vite --mode chromium",
     "dev:firefox": "vite --mode firefox",
     "flags": "tsx scripts/build-flags.ts",
-    "build:chromium": "npm run flags && vite build --mode chromium && tsx scripts/write-manifest.ts chromium",
-    "build:firefox": "npm run flags && vite build --mode firefox && tsx scripts/write-manifest.ts firefox",
+    "icons": "tsx scripts/build-icons.ts",
+    "build:chromium": "npm run flags && npm run icons && vite build --mode chromium && tsx scripts/write-manifest.ts chromium",
+    "build:firefox": "npm run flags && npm run icons && vite build --mode firefox && tsx scripts/write-manifest.ts firefox",
     "build": "npm run build:chromium && npm run build:firefox",
     "test": "vitest run",
     "test:watch": "vitest",
