@@ -23,7 +23,8 @@ function formatNetwork(ip?: IpState): string {
 function renderIp(prefix: 'ipv4' | 'ipv6', ip: IpState | undefined, style: FlagStyle): void {
   const flag = $<HTMLImageElement>(`${prefix}-flag`);
   const country = $(`${prefix}-country`);
-  const address = $<HTMLButtonElement>(`${prefix}-address`);
+  const address = $(`${prefix}-address`);
+  const copyButton = $<HTMLButtonElement>(`${prefix}-copy`);
   const network = $(`${prefix}-network`);
 
   if (!ip) {
@@ -31,6 +32,7 @@ function renderIp(prefix: 'ipv4' | 'ipv6', ip: IpState | undefined, style: FlagS
     country.textContent = 'Not available';
     address.textContent = '—';
     address.dataset.value = '';
+    copyButton.disabled = true;
     network.textContent = '';
     return;
   }
@@ -47,6 +49,7 @@ function renderIp(prefix: 'ipv4' | 'ipv6', ip: IpState | undefined, style: FlagS
     : 'Country unavailable';
   address.textContent = ip.address;
   address.dataset.value = ip.address;
+  copyButton.disabled = false;
   network.textContent = formatNetwork(ip);
 }
 
@@ -125,9 +128,23 @@ flagStyle.addEventListener('change', async () => {
 });
 
 for (const prefix of ['ipv4', 'ipv6'] as const) {
-  $<HTMLButtonElement>(`${prefix}-address`).addEventListener('click', async (event) => {
-    const value = (event.currentTarget as HTMLButtonElement).dataset.value;
-    if (value) await navigator.clipboard.writeText(value);
+  $<HTMLButtonElement>(`${prefix}-copy`).addEventListener('click', async (event) => {
+    const copyButton = event.currentTarget as HTMLButtonElement;
+    const value = $(`${prefix}-address`).dataset.value;
+    if (!value) return;
+
+    try {
+      await navigator.clipboard.writeText(value);
+      copyButton.textContent = 'Copied';
+      setTimeout(() => {
+        copyButton.textContent = 'Copy';
+      }, 1_500);
+    } catch {
+      copyButton.textContent = 'Failed';
+      setTimeout(() => {
+        copyButton.textContent = 'Copy';
+      }, 1_500);
+    }
   });
 }
 

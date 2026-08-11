@@ -10,7 +10,7 @@
     <main class="panel">
       <header class="header">
         <div>
-          <div class="brand">IP Flag</div>
+          <div class="brand">My IP — VPN Location</div>
           <div id="status" class="status">Checking…</div>
         </div>
         <button id="refresh" class="icon-button" type="button" title="Check now">↻</button>
@@ -27,7 +27,10 @@
             <img id="ipv4-flag" class="flag hidden" alt="" />
           </div>
           <div id="ipv4-country" class="country">Not available</div>
-          <button id="ipv4-address" class="address" type="button" title="Copy IPv4">—</button>
+          <div class="address-row">
+            <span id="ipv4-address" class="address">—</span>
+            <button id="ipv4-copy" class="copy-button" type="button" disabled>Copy</button>
+          </div>
           <div id="ipv4-network" class="network"></div>
         </article>
 
@@ -37,7 +40,10 @@
             <img id="ipv6-flag" class="flag hidden" alt="" />
           </div>
           <div id="ipv6-country" class="country">Not available</div>
-          <button id="ipv6-address" class="address" type="button" title="Copy IPv6">—</button>
+          <div class="address-row">
+            <span id="ipv6-address" class="address">—</span>
+            <button id="ipv6-copy" class="copy-button" type="button" disabled>Copy</button>
+          </div>
           <div id="ipv6-network" class="network"></div>
         </article>
       </section>

@@ -96,20 +96,35 @@ select {
 }
 
 .address {
-  display: block;
-  max-width: 100%;
-  margin: 5px 0 3px;
-  padding: 0;
+  min-width: 0;
   overflow: hidden;
-  border: 0;
-  background: transparent;
-  color: inherit;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: 12px;
-  text-align: left;
   text-overflow: ellipsis;
   white-space: nowrap;
-  cursor: copy;
+  margin: 5px 0 3px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 12px;
+}
+
+.address-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.copy-button {
+  flex: 0 0 auto;
+  padding: 3px 7px;
+  border: 1px solid color-mix(in srgb, CanvasText 20%, transparent);
+  border-radius: 6px;
+  background: transparent;
+  color: inherit;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.copy-button:disabled {
+  opacity: 0.45;
+  cursor: default;
 }
 
 .footer {

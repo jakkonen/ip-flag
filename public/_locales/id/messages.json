@@ -1,5 +1,5 @@
 {
-  "extensionName": { "message": "IP Flag — IP publik dan negara VPN" },
-  "extensionDescription": { "message": "Lihat IPv4/IPv6 publik browser dan negara keluar secara sekilas, serta temukan perbedaan negara saat menggunakan VPN atau proksi." },
-  "actionTitle": { "message": "IP Flag" }
+  "extensionName": { "message": "My IP — VPN Location" },
+  "extensionDescription": { "message": "Lihat IPv4 dan IPv6 publik, bendera negara, serta lokasi VPN Anda secara sekilas." },
+  "actionTitle": { "message": "My IP — VPN Location" }
 }

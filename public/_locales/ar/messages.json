@@ -1,5 +1,5 @@
 {
-  "extensionName": { "message": "IP Flag — عنوان IP العام وبلد VPN" },
-  "extensionDescription": { "message": "اعرض عناوين IPv4/IPv6 العامة للمتصفح وبلد الخروج بسرعة، واكتشف اختلاف البلدان عند استخدام VPN أو وكيل." },
-  "actionTitle": { "message": "IP Flag" }
+  "extensionName": { "message": "My IP — VPN Location" },
+  "extensionDescription": { "message": "اعرض عناوين IPv4 وIPv6 العامة وعلم البلد وموقع VPN بسرعة." },
+  "actionTitle": { "message": "My IP — VPN Location" }
 }

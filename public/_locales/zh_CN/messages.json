@@ -1,5 +1,5 @@
 {
-  "extensionName": { "message": "IP Flag — 公共 IP 与 VPN 国家/地区" },
-  "extensionDescription": { "message": "一目了然地查看浏览器的公共 IPv4/IPv6 地址和所在国家/地区，并发现 VPN 或代理导致的国家/地区不一致。" },
-  "actionTitle": { "message": "IP Flag" }
+  "extensionName": { "message": "My IP — VPN Location" },
+  "extensionDescription": { "message": "一目了然地查看公共 IPv4 和 IPv6、国家/地区旗帜以及 VPN 位置。" },
+  "actionTitle": { "message": "My IP — VPN Location" }
 }

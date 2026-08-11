@@ -1,5 +1,5 @@
 {
-  "extensionName": { "message": "IP Flag — Öffentliche IP und VPN-Land" },
-  "extensionDescription": { "message": "Sehen Sie öffentliche IPv4/IPv6-Adressen und das Ausgangsland Ihres Browsers auf einen Blick und erkennen Sie Länderabweichungen bei VPN oder Proxy." },
-  "actionTitle": { "message": "IP Flag" }
+  "extensionName": { "message": "My IP — VPN Location" },
+  "extensionDescription": { "message": "Sehen Sie öffentliche IPv4- und IPv6-Adressen, die Länderflagge und den VPN-Standort auf einen Blick." },
+  "actionTitle": { "message": "My IP — VPN Location" }
 }

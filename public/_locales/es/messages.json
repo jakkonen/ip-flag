@@ -1,5 +1,5 @@
 {
-  "extensionName": { "message": "IP Flag — IP pública y país de VPN" },
-  "extensionDescription": { "message": "Consulta de un vistazo las IPv4/IPv6 públicas y el país de salida, y detecta discrepancias de país al usar una VPN o un proxy." },
-  "actionTitle": { "message": "IP Flag" }
+  "extensionName": { "message": "My IP — VPN Location" },
+  "extensionDescription": { "message": "Consulta de un vistazo tus IPv4 e IPv6 públicas, la bandera del país y la ubicación de la VPN." },
+  "actionTitle": { "message": "My IP — VPN Location" }
 }
