@@ -1,0 +1,38 @@
+name: Release extension
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  build-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run build
+      - name: Create extension archives
+        run: |
+          cd dist/chromium
+          zip -r ../../ip-flag-${{ github.ref_name }}-chromium.zip .
+          cd ../firefox
+          zip -r ../../ip-flag-${{ github.ref_name }}-firefox.zip .
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "${{ github.ref_name }}" \
+            ip-flag-${{ github.ref_name }}-chromium.zip \
+            ip-flag-${{ github.ref_name }}-firefox.zip \
+            --title "IP Flag ${{ github.ref_name }}" \
+            --generate-notes

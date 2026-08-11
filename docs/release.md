@@ -9,7 +9,22 @@
 1. Завершить изменение и выполнить проверки.
 2. Повысить версию командой `npm version`.
 3. Отправить commit с обновлёнными `package.json` и `package-lock.json` вместе с изменениями в GitHub.
-4. Собрать Chromium-пакет перед загрузкой в Chrome Web Store.
+4. Выполнить `npm run build`, чтобы версия из `package.json` попала в `dist/chromium/manifest.json` и `dist/firefox/manifest.json`.
+5. Для локально загруженного Chrome-расширения нажать кнопку перезагрузки на `chrome://extensions`: Chrome не читает версию из исходного кода и использует только уже собранную папку `dist/chromium`.
+6. Перед загрузкой в Chrome Web Store упаковать заново собранное содержимое `dist/chromium`; номер версии в ZIP должен быть выше версии предыдущей загрузки.
+
+## Публичный GitHub Release
+
+После push commit с новой версией создаётся тег с тем же номером: `v0.1.2` для версии `0.1.2`. Push этого тега запускает GitHub Actions. Workflow проверяет код, собирает Chromium и Firefox и добавляет готовые ZIP-файлы в [Releases](https://github.com/jakkonen/ip-flag/releases). Для Chrome Web Store используется файл с окончанием `-chromium.zip`.
+
+## Единая версия
+
+Источник версии — только `package.json`. Не следует вручную менять `manifest.json`: он создаётся скриптом сборки. При каждом релизе должны совпадать:
+
+- версия в `package.json` и `package-lock.json`;
+- версия в manifest Chromium и Firefox после сборки;
+- версия проверяемого unpacked-расширения после его перезагрузки;
+- версия ZIP, отправляемого в Chrome Web Store.
 
 ## Тип версии
 
