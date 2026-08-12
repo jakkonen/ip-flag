@@ -10,11 +10,16 @@ IP Flag answers one question at a glance: **from which country does this browser
 - independent IPv4 and IPv6 checks;
 - country mismatch warning;
 - ASN / organization;
+- verified network markers when supplied by GeoIP: hosting, data center, VPN, proxy, or Tor;
+- optional city and region lookup, disabled by default;
 - 60-second current-state cache;
-- 24-hour GeoIP cache, max 50 IPs;
-- automatic refresh with a configurable interval (default: 5 minutes);
+- 3-day GeoIP cache, max 50 IPs, with a clear-location-cache control;
+- automatic refresh with configurable 30-second, 1-, 5-, 15-, or 30-minute intervals;
+- optional checks on browser start, popup open, and new-tab creation;
 - manual refresh;
-- local check history and optional change notifications;
+- local history of the latest 200 completed checks, including trigger and GeoIP cache/request source;
+- optional browser notifications for IP and exit-country changes;
+- `NEW` toolbar badge, tooltip with public IPs, and popup change notice;
 - unavailable public-IP checks are shown in the popup but are not stored as history events;
 - round and rectangular flags generated locally from the same SVG source;
 - no analytics, account, cloud sync, browsing-history access, or content-script access.
@@ -46,7 +51,7 @@ IP Flag answers one question at a glance: **from which country does this browser
 
 - `api.ipapi.is/?q=<IP>`
 
-The extension first determines IPv4/IPv6, then performs GeoIP only for IP addresses that are not already present in the local 24-hour cache.
+The extension first determines IPv4/IPv6, then performs GeoIP only for IP addresses that are not already present in the local three-day cache. `ipapi.is` provides country, ASN, organization, and network markers. If the user enables city lookup, the same public IP is additionally sent to `ipwho.is` for region and city; this optional result is stored in the same local cache.
 
 ## Development
 
@@ -125,7 +130,7 @@ public IP check
       │
       └── IP found
              │
-             ├── GeoIP cached < 24h → reuse GeoIP
+             ├── GeoIP cached < 3 days → reuse GeoIP
              │
              └── new/expired IP → GeoIP request → cache
 ```
@@ -139,7 +144,8 @@ IPv4 FI + IPv6 FI  → Finland flag
 IPv4 only FI       → Finland flag
 IPv6 only FI       → Finland flag
 IPv4 DE + IPv6 FI  → warning icon
-no public IP       → neutral IP icon
+no public IP       → warning icon; no history record is added
+unacknowledged change → NEW badge and a detailed toolbar tooltip
 ```
 
 ## Privacy

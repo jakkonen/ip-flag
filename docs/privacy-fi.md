@@ -15,6 +15,7 @@ Nykyinen versio käyttää seuraavia palveluita:
 - `api.ipify.org` julkiselle IPv4-osoitteelle;
 - `api6.ipify.org` julkiselle IPv6-osoitteelle;
 - `api.ipapi.is` maalle, ASN:lle ja verkko-organisaatiolle.
+- `ipwho.is` valinnaiseen alueen ja kaupungin hakuun vain, kun käyttäjä ottaa asetuksen käyttöön.
 
 ## Tiedot, joita ei kerätä
 
@@ -24,7 +25,7 @@ Laajennus ei käytä analytiikkaa, mainontaa, telemetriaa, pilvisynkronointia ta
 
 ## Paikallinen tallennus
 
-Nykyinen verkkotila, valittu lippujen tyyli ja pieni GeoIP-välimuisti tallennetaan vain selaimen laajennuksen paikalliseen tallennustilaan. GeoIP-välimuistia säilytetään enintään 24 tuntia ja siinä on enintään 50 IP-osoitetta.
+Nykyinen verkkotila, valitut asetukset ja pieni GeoIP-välimuisti tallennetaan vain selaimen laajennuksen paikalliseen tallennustilaan. GeoIP-välimuistia säilytetään enintään kolme päivää ja siinä on enintään 50 IP-osoitetta.
 
 ## Tietojen siirto
 

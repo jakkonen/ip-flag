@@ -15,6 +15,7 @@ The current version uses these services:
 - `api.ipify.org` for public IPv4;
 - `api6.ipify.org` for public IPv6;
 - `api.ipapi.is` for country, ASN, and network organization.
+- `ipwho.is` for optional region and city lookup, only when the user enables that setting.
 
 ## Data not collected
 
@@ -24,7 +25,7 @@ The extension does not use analytics, advertising, telemetry, cloud synchronizat
 
 ## Local storage
 
-The current network state, selected flag style, and a small GeoIP cache are stored only in the browser's local extension storage. The GeoIP cache is retained for up to 24 hours and contains no more than 50 IP addresses.
+The current network state, selected preferences, and a small GeoIP cache are stored only in the browser's local extension storage. The GeoIP cache is retained for up to three days and contains no more than 50 IP addresses.
 
 ## Data transfer
 

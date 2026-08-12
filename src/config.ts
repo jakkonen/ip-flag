@@ -5,6 +5,7 @@ export const CONFIG = {
   },
   geo: {
     baseUrl: 'https://api.ipapi.is',
+    cityUrl: 'https://ipwho.is',
     cacheTtlMs: 3 * 24 * 60 * 60 * 1000,
     maxEntries: 50
   },

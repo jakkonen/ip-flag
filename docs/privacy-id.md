@@ -10,7 +10,7 @@ IP Flag adalah ekstensi browser yang secara lokal menampilkan bagaimana browser 
 
 Ekstensi menghubungi layanan eksternal untuk menentukan alamat IPv4 dan IPv6 publik browser. Alamat tersebut kemudian dikirim ke layanan GeoIP untuk menentukan negara dan organisasi jaringan.
 
-Versi saat ini menggunakan `api.ipify.org` untuk IPv4 publik, `api6.ipify.org` untuk IPv6 publik, dan `api.ipapi.is` untuk negara, ASN, serta organisasi jaringan.
+Versi saat ini menggunakan `api.ipify.org` untuk IPv4 publik, `api6.ipify.org` untuk IPv6 publik, dan `api.ipapi.is` untuk negara, ASN, serta organisasi jaringan. Jika pengguna mengaktifkan opsi ini, alamat IP publik juga dikirim ke `ipwho.is` untuk mencari wilayah dan kota.
 
 ## Data yang tidak dikumpulkan
 

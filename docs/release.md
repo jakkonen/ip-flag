@@ -2,7 +2,7 @@
 
 ## Правило проекта
 
-Перед каждым новым push с изменениями в ветку `main` необходимо повысить версию расширения. Версия в `package.json` автоматически попадает в сгенерированный `manifest.json` при сборке, поэтому Chrome Web Store получит корректную новую версию пакета.
+Перед каждым новым push с изменениями в ветку `main` необходимо повысить версию расширения. Версия в `package.json` автоматически попадает в сгенерированный `manifest.json` при сборке, поэтому Chrome Web Store и Firefox получат корректную новую версию пакета.
 
 ## Порядок работы
 
@@ -10,12 +10,13 @@
 2. Повысить версию командой `npm version`.
 3. Отправить commit с обновлёнными `package.json` и `package-lock.json` вместе с изменениями в GitHub.
 4. Выполнить `npm run build`, чтобы версия из `package.json` попала в `dist/chromium/manifest.json` и `dist/firefox/manifest.json`.
-5. Для локально загруженного Chrome-расширения нажать кнопку перезагрузки на `chrome://extensions`: Chrome не читает версию из исходного кода и использует только уже собранную папку `dist/chromium`.
-6. Перед загрузкой в Chrome Web Store упаковать заново собранное содержимое `dist/chromium`; номер версии в ZIP должен быть выше версии предыдущей загрузки.
+5. Создать commit и аннотированный тег вида `v0.1.10`, затем отправить в GitHub и ветку `main`, и тег.
+6. Для локально загруженного Chrome-расширения нажать кнопку перезагрузки на `chrome://extensions`: Chrome не читает версию из исходного кода и использует только уже собранную папку `dist/chromium`.
+7. Для загрузки в магазины брать готовые ZIP из GitHub Release; номер версии в архиве должен быть выше версии предыдущей загрузки.
 
 ## Публичный GitHub Release
 
-После push commit с новой версией создаётся тег с тем же номером: `v0.1.2` для версии `0.1.2`. Push этого тега запускает GitHub Actions. Workflow проверяет код, собирает Chromium и Firefox и добавляет готовые ZIP-файлы в [Releases](https://github.com/jakkonen/ip-flag/releases). Для Chrome Web Store используется файл с окончанием `-chromium.zip`.
+После push commit с новой версией создаётся тег с тем же номером: `v0.1.10` для версии `0.1.10`. Push этого тега запускает GitHub Actions. Workflow проверяет код, собирает Chromium и Firefox и добавляет готовые ZIP-файлы в [Releases](https://github.com/jakkonen/ip-flag/releases). Для Chrome Web Store используется файл с окончанием `-chromium.zip`, для Mozilla Add-ons — `-firefox.zip`.
 
 ## Единая версия
 

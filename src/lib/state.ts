@@ -109,12 +109,12 @@ async function notifyChanges(entry: CheckHistoryEntry): Promise<void> {
   }
 }
 
-async function resolveIpState(family: IpFamily): Promise<IpState | undefined> {
+async function resolveIpState(family: IpFamily, lookupCity: boolean): Promise<IpState | undefined> {
   const address = await getPublicIp(family);
   if (!address) return undefined;
 
   try {
-    const geo = await getGeoInfo(address);
+    const geo = await getGeoInfo(address, false, lookupCity);
     return { family, address, ...geo.info, geoSource: geo.source };
   } catch {
     return { family, address, checkedAt: Date.now() };
@@ -128,7 +128,11 @@ async function refreshInternal(force: boolean, trigger: CheckTrigger): Promise<N
     return cached;
   }
 
-  const [ipv4, ipv6] = await Promise.all([resolveIpState('ipv4'), resolveIpState('ipv6')]);
+  const settings = await getSettings();
+  const [ipv4, ipv6] = await Promise.all([
+    resolveIpState('ipv4', settings.lookupCity),
+    resolveIpState('ipv6', settings.lookupCity)
+  ]);
 
   const state: NetworkState = {
     ipv4,

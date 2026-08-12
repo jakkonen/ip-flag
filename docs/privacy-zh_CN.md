@@ -15,6 +15,7 @@ IP Flag 是一款浏览器扩展程序，用于在本地显示浏览器在互联
 - `api.ipify.org`：公共 IPv4；
 - `api6.ipify.org`：公共 IPv6；
 - `api.ipapi.is`：国家/地区、ASN 和网络组织。
+- `ipwho.is`：可选的地区和城市查询，仅在用户启用该设置时使用。
 
 ## 不收集的数据
 

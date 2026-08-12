@@ -6,6 +6,8 @@ export type CheckTrigger = 'startup' | 'popup' | 'manual' | 'alarm' | 'newTab';
 export interface GeoInfo {
   countryCode?: string;
   countryName?: string;
+  region?: string;
+  city?: string;
   asn?: number;
   organization?: string;
   networkType?: string;
@@ -37,7 +39,8 @@ export interface CachedGeoInfo extends GeoInfo {
   countryCode: string;
   countryName: string;
   lastUsedAt: number;
-  cacheVersion: 5;
+  cityCheckedAt?: number;
+  cacheVersion: 6;
 }
 
 export interface UserSettings {
@@ -49,6 +52,7 @@ export interface UserSettings {
   refreshIntervalMinutes: 0.5 | 1 | 5 | 15 | 30;
   notifyIpChange: boolean;
   notifyCountryChange: boolean;
+  lookupCity: boolean;
 }
 
 export interface CheckHistoryEntry {

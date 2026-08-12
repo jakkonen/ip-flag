@@ -9,7 +9,8 @@
   "host_permissions": [
     "https://api.ipify.org/*",
     "https://api6.ipify.org/*",
-    "https://api.ipapi.is/*"
+    "https://api.ipapi.is/*",
+    "https://ipwho.is/*"
   ],
   "action": {
     "default_title": "__MSG_actionTitle__",

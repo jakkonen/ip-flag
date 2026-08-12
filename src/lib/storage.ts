@@ -19,7 +19,8 @@ const DEFAULT_SETTINGS: UserSettings = {
   scheduledRefreshEnabled: true,
   refreshIntervalMinutes: 5,
   notifyIpChange: false,
-  notifyCountryChange: false
+  notifyCountryChange: false,
+  lookupCity: false
 };
 
 export async function getCurrentState(): Promise<NetworkState | undefined> {

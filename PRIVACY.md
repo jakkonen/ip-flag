@@ -20,4 +20,4 @@ The extension contains no analytics or advertising SDK.
 
 ## External services
 
-The MVP uses ipify to determine public IPv4/IPv6 and ipapi.is to obtain country/ASN/company metadata for those addresses. Requests are made only for the extension's stated network-egress functionality.
+The extension uses ipify to determine public IPv4/IPv6 and ipapi.is to obtain country/ASN/company metadata for those addresses. If the optional city lookup is enabled by the user, the same public IP address is also sent to ipwho.is to obtain a region and city. Requests are made only for the extension's stated network-egress functionality.

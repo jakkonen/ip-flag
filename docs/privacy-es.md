@@ -15,6 +15,7 @@ La versión actual usa:
 - `api.ipify.org` para IPv4 pública;
 - `api6.ipify.org` para IPv6 pública;
 - `api.ipapi.is` para país, ASN y organización de red.
+- `ipwho.is` para la consulta opcional de región y ciudad, solo cuando el usuario activa este ajuste.
 
 ## Datos no recopilados
 
@@ -24,7 +25,7 @@ La extensión no usa análisis, publicidad, telemetría, sincronización en la n
 
 ## Almacenamiento local y transferencia
 
-El estado de red actual, el estilo de bandera seleccionado y una pequeña caché GeoIP se almacenan solo en el almacenamiento local de la extensión. La caché se conserva hasta 24 horas y contiene como máximo 50 direcciones IP.
+El estado de red actual, las preferencias seleccionadas y una pequeña caché GeoIP se almacenan solo en el almacenamiento local de la extensión. La caché se conserva hasta tres días y contiene como máximo 50 direcciones IP.
 
 Una dirección IP pública se envía a los servicios indicados únicamente para la función principal de la extensión y mediante HTTPS.
 

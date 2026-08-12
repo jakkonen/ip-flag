@@ -10,7 +10,7 @@ IP Flag é uma extensão de navegador que mostra localmente como o navegador apa
 
 A extensão contata serviços externos para determinar os endereços IPv4 e IPv6 públicos do navegador. Em seguida, envia esses endereços a um serviço GeoIP para determinar o país e a organização de rede.
 
-A versão atual usa `api.ipify.org` para IPv4 público, `api6.ipify.org` para IPv6 público e `api.ipapi.is` para país, ASN e organização de rede.
+A versão atual usa `api.ipify.org` para IPv4 público, `api6.ipify.org` para IPv6 público e `api.ipapi.is` para país, ASN e organização de rede. Se o usuário ativar essa opção, o IP público também é enviado ao `ipwho.is` para consultar região e cidade.
 
 ## Dados não coletados
 

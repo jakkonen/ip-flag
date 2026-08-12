@@ -18,6 +18,7 @@ const refreshInterval = $<HTMLSelectElement>('refresh-interval');
 const refreshIntervalControl = $('refresh-interval-control');
 const notifyIpChange = $<HTMLInputElement>('notify-ip-change');
 const notifyCountryChange = $<HTMLInputElement>('notify-country-change');
+const lookupCity = $<HTMLInputElement>('lookup-city');
 const testNotificationButton = $<HTMLButtonElement>('test-notification');
 const historyEl = $('history');
 const clearHistoryButton = $<HTMLButtonElement>('clear-history');
@@ -31,7 +32,8 @@ const DEFAULT_SETTINGS: UserSettings = {
   scheduledRefreshEnabled: true,
   refreshIntervalMinutes: 5,
   notifyIpChange: false,
-  notifyCountryChange: false
+  notifyCountryChange: false,
+  lookupCity: false
 };
 
 let currentSettings: UserSettings = { ...DEFAULT_SETTINGS };
@@ -46,9 +48,8 @@ function formatNetwork(ip?: IpState): string {
   return parts.join(' · ');
 }
 
-function formatLocation(ip?: Pick<IpState, 'countryName'>): string {
-  if (!ip?.countryName) return 'Country unavailable';
-  return ip.countryName;
+function formatLocation(ip?: Pick<IpState, 'countryName' | 'region' | 'city'>): string {
+  return [ip?.region, ip?.city].filter(Boolean).join(' · ');
 }
 
 function networkDetails(ip?: IpState): string[] {
@@ -69,6 +70,7 @@ function renderIp(prefix: 'ipv4' | 'ipv6', ip: IpState | undefined, style: FlagS
   const address = $(`${prefix}-address`);
   const copyButton = $<HTMLButtonElement>(`${prefix}-copy`);
   const network = $(`${prefix}-network`);
+  const location = $(`${prefix}-location`);
   const networkDetailsEl = $(`${prefix}-network-details`);
 
   if (!ip) {
@@ -80,6 +82,7 @@ function renderIp(prefix: 'ipv4' | 'ipv6', ip: IpState | undefined, style: FlagS
     copyButton.disabled = true;
     copyButton.hidden = true;
     network.textContent = '';
+    location.textContent = '';
     networkDetailsEl.replaceChildren();
     return;
   }
@@ -93,12 +96,13 @@ function renderIp(prefix: 'ipv4' | 'ipv6', ip: IpState | undefined, style: FlagS
   } else {
     flag.classList.add('hidden');
   }
-  country.textContent = formatLocation(ip);
+  country.textContent = ip.countryName ?? 'Country unavailable';
   address.textContent = ip.address;
   address.dataset.value = ip.address;
   copyButton.disabled = false;
   copyButton.hidden = false;
   network.textContent = formatNetwork(ip);
+  location.textContent = formatLocation(ip);
   networkDetailsEl.replaceChildren(...networkDetails(ip).map((detail) => {
     const badge = document.createElement('span');
     badge.className = `network-detail${detail.includes('detected') ? ' network-detail--warning' : ''}`;
@@ -164,7 +168,8 @@ function settingsFromForm(): UserSettings {
     scheduledRefreshEnabled: scheduledRefreshEnabled.checked,
     refreshIntervalMinutes: Number(refreshInterval.value) as UserSettings['refreshIntervalMinutes'],
     notifyIpChange: notifyIpChange.checked,
-    notifyCountryChange: notifyCountryChange.checked
+    notifyCountryChange: notifyCountryChange.checked,
+    lookupCity: lookupCity.checked
   };
 }
 
@@ -178,6 +183,7 @@ function renderSettings(settings: UserSettings): void {
   refreshInterval.value = String(settings.refreshIntervalMinutes);
   notifyIpChange.checked = settings.notifyIpChange;
   notifyCountryChange.checked = settings.notifyCountryChange;
+  lookupCity.checked = settings.lookupCity;
   refreshInterval.disabled = !settings.scheduledRefreshEnabled;
   refreshIntervalControl.classList.toggle('is-disabled', !settings.scheduledRefreshEnabled);
 }
@@ -300,11 +306,11 @@ refreshButton.addEventListener('click', async () => {
   }
 });
 
-for (const control of [flagStyle, refreshOnStartup, refreshOnPopupOpen, refreshOnNewTab, scheduledRefreshEnabled, refreshInterval, notifyIpChange, notifyCountryChange]) {
+for (const control of [flagStyle, refreshOnStartup, refreshOnPopupOpen, refreshOnNewTab, scheduledRefreshEnabled, refreshInterval, notifyIpChange, notifyCountryChange, lookupCity]) {
   control.addEventListener('change', async () => {
   try {
       await saveSettings();
-      const state = await send<NetworkState>({ type: 'GET_STATE' });
+      const state = await send<NetworkState>({ type: control === lookupCity ? 'REFRESH' : 'GET_STATE', force: true });
       render(state);
   } catch {
     showError();
