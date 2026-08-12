@@ -52,8 +52,8 @@
       </section>
 
       <footer class="footer">
-        <div>
-          <div class="appearance-label">Appearance</div>
+        <section class="settings-section">
+          <div class="section-label">Appearance</div>
           <label class="style-control">
             Flag shape
             <select id="flag-style">
@@ -61,7 +61,33 @@
               <option value="rectangle">Rectangle</option>
             </select>
           </label>
-        </div>
+        </section>
+
+        <details class="settings-section" open>
+          <summary>Checks and notifications</summary>
+          <label class="toggle-control"><input id="refresh-on-startup" type="checkbox" /> Check when browser starts</label>
+          <label class="toggle-control"><input id="refresh-on-popup-open" type="checkbox" /> Refresh when popup opens</label>
+          <label class="toggle-control"><input id="refresh-on-new-tab" type="checkbox" /> Refresh when a new tab opens</label>
+          <label class="toggle-control"><input id="scheduled-refresh-enabled" type="checkbox" /> Check automatically</label>
+          <label id="refresh-interval-control" class="style-control">
+            Every
+            <select id="refresh-interval">
+              <option value="0.5">30 seconds</option>
+              <option value="1">1 minute</option>
+              <option value="5">5 minutes</option>
+              <option value="15">15 minutes</option>
+              <option value="30">30 minutes</option>
+            </select>
+          </label>
+          <label class="toggle-control"><input id="notify-ip-change" type="checkbox" /> Notify when IP changes</label>
+          <label class="toggle-control"><input id="notify-country-change" type="checkbox" /> Notify when country changes</label>
+        </details>
+
+        <details class="history-section" open>
+          <summary>Check history</summary>
+          <div id="history" class="history-empty">No completed checks yet.</div>
+          <button id="clear-history" class="text-button" type="button" hidden>Clear history</button>
+        </details>
       </footer>
     </main>
   </body>

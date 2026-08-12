@@ -1,14 +1,24 @@
 import browser from './browser';
-import type { CachedGeoInfo, NetworkState, UserSettings } from '../types';
+import type { CachedGeoInfo, CheckHistoryEntry, NetworkState, UserSettings } from '../types';
 
 const KEYS = {
   currentState: 'currentState',
   geoCache: 'geoCache',
-  settings: 'settings'
+  settings: 'settings',
+  checkHistory: 'checkHistory'
 } as const;
 
+const MAX_HISTORY_ENTRIES = 200;
+
 const DEFAULT_SETTINGS: UserSettings = {
-  flagStyle: 'round'
+  flagStyle: 'round',
+  refreshOnStartup: true,
+  refreshOnPopupOpen: true,
+  refreshOnNewTab: false,
+  scheduledRefreshEnabled: true,
+  refreshIntervalMinutes: 5,
+  notifyIpChange: false,
+  notifyCountryChange: false
 };
 
 export async function getCurrentState(): Promise<NetworkState | undefined> {
@@ -39,4 +49,19 @@ export async function getSettings(): Promise<UserSettings> {
 
 export async function setSettings(settings: UserSettings): Promise<void> {
   await browser.storage.local.set({ [KEYS.settings]: settings });
+}
+
+export async function getCheckHistory(): Promise<CheckHistoryEntry[]> {
+  const result = await browser.storage.local.get(KEYS.checkHistory);
+  return (result[KEYS.checkHistory] as CheckHistoryEntry[] | undefined) ?? [];
+}
+
+export async function addCheckHistory(entry: CheckHistoryEntry): Promise<void> {
+  const history = await getCheckHistory();
+  history.unshift(entry);
+  await browser.storage.local.set({ [KEYS.checkHistory]: history.slice(0, MAX_HISTORY_ENTRIES) });
+}
+
+export async function clearCheckHistory(): Promise<void> {
+  await browser.storage.local.remove(KEYS.checkHistory);
 }

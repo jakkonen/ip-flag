@@ -12,8 +12,9 @@ IP Flag answers one question at a glance: **from which country does this browser
 - ASN / organization;
 - 60-second current-state cache;
 - 24-hour GeoIP cache, max 50 IPs;
-- automatic refresh every 5 minutes;
+- automatic refresh with a configurable interval (default: 5 minutes);
 - manual refresh;
+- local check history and optional change notifications;
 - round and rectangular flags generated locally from the same SVG source;
 - no analytics, account, cloud sync, browsing-history access, or content-script access.
 

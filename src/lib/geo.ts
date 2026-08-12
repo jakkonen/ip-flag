@@ -21,6 +21,11 @@ interface IpApiResponse {
   };
 }
 
+export interface GeoLookupResult {
+  info: GeoInfo;
+  source: 'cache' | 'request';
+}
+
 function pruneCache(cache: Record<string, CachedGeoInfo>): Record<string, CachedGeoInfo> {
   const entries = Object.entries(cache)
     .sort((a, b) => b[1].lastUsedAt - a[1].lastUsedAt)
@@ -29,7 +34,7 @@ function pruneCache(cache: Record<string, CachedGeoInfo>): Record<string, Cached
   return Object.fromEntries(entries);
 }
 
-export async function getGeoInfo(ip: string, force = false): Promise<GeoInfo> {
+export async function getGeoInfo(ip: string, force = false): Promise<GeoLookupResult> {
   const now = Date.now();
   const cache = await getGeoCache();
   const cached = cache[ip];
@@ -37,7 +42,7 @@ export async function getGeoInfo(ip: string, force = false): Promise<GeoInfo> {
   if (!force && cached && now - cached.checkedAt < CONFIG.geo.cacheTtlMs) {
     cache[ip] = { ...cached, lastUsedAt: now };
     await setGeoCache(pruneCache(cache));
-    return cached;
+    return { info: cached, source: 'cache' };
   }
 
   const url = `${CONFIG.geo.baseUrl}/?q=${encodeURIComponent(ip)}`;
@@ -52,7 +57,7 @@ export async function getGeoInfo(ip: string, force = false): Promise<GeoInfo> {
   }
 
   if (!response.ok) {
-    if (cached) return cached;
+    if (cached) return { info: cached, source: 'cache' };
     throw new Error(`GeoIP lookup failed: HTTP ${response.status}`);
   }
 
@@ -61,7 +66,7 @@ export async function getGeoInfo(ip: string, force = false): Promise<GeoInfo> {
   const countryName = countryCode ? (data.location?.country ?? countryNameFromCode(countryCode)) : undefined;
 
   if (!countryCode || !countryName) {
-    if (cached) return cached;
+    if (cached) return { info: cached, source: 'cache' };
     throw new Error('GeoIP response does not contain country data');
   }
 
@@ -77,5 +82,5 @@ export async function getGeoInfo(ip: string, force = false): Promise<GeoInfo> {
   cache[ip] = info;
   await setGeoCache(pruneCache(cache));
 
-  return info;
+  return { info, source: 'request' };
 }

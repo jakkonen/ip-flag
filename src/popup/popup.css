@@ -178,13 +178,27 @@ select {
   border-top: 1px solid color-mix(in srgb, CanvasText 12%, transparent);
 }
 
-.appearance-label {
+.settings-section,
+.history-section {
+  margin-top: 12px;
+}
+
+.section-label,
+summary {
   margin-bottom: 5px;
   color: color-mix(in srgb, CanvasText 58%, transparent);
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
+}
+
+summary {
+  cursor: pointer;
+}
+
+details[open] summary {
+  margin-bottom: 8px;
 }
 
 .style-control {
@@ -197,6 +211,102 @@ select {
 select {
   padding: 3px 6px;
   border-radius: 7px;
+}
+
+.toggle-control {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 7px 0;
+  font-size: 12px;
+}
+
+.toggle-control input {
+  margin: 0;
+}
+
+#refresh-interval-control {
+  margin: 7px 0 7px 22px;
+}
+
+#refresh-interval-control.is-disabled {
+  opacity: 0.5;
+}
+
+.history-empty,
+.history-list {
+  color: color-mix(in srgb, CanvasText 65%, transparent);
+  font-size: 12px;
+}
+
+.history-list {
+  display: grid;
+  gap: 7px;
+}
+
+.history-entry {
+  padding: 7px 8px;
+  border-radius: 7px;
+  background: color-mix(in srgb, CanvasText 5%, transparent);
+}
+
+.history-entry__time {
+  color: color-mix(in srgb, CanvasText 55%, transparent);
+  font-size: 11px;
+}
+
+.history-entry__header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.history-entry__trigger {
+  display: inline-block;
+  padding: 1px 4px;
+  border-radius: 4px;
+  background: color-mix(in srgb, CanvasText 8%, transparent);
+  color: color-mix(in srgb, CanvasText 70%, transparent);
+  font-size: 10px;
+}
+
+.history-entry__change {
+  margin-top: 2px;
+  color: #a84f00;
+  font-weight: 650;
+}
+
+.history-entry__countries {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px 7px;
+  margin-top: 4px;
+  color: color-mix(in srgb, CanvasText 65%, transparent);
+  font-size: 11px;
+}
+
+.history-entry__flag {
+  width: 14px;
+  height: 14px;
+  object-fit: cover;
+}
+
+.history-entry__source {
+  padding: 1px 4px;
+  border-radius: 4px;
+  background: color-mix(in srgb, CanvasText 8%, transparent);
+  font-size: 10px;
+}
+
+.text-button {
+  margin-top: 8px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #a84f00;
+  cursor: pointer;
+  font-size: 12px;
 }
 
 .hidden {
