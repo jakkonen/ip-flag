@@ -2,7 +2,7 @@
 
 生效日期：2026 年 8 月 11 日。
 
-[English](privacy.html) · [Русский](privacy-ru.html)
+[English](privacy.html) · [Suomi](privacy-fi.html) · [Русский](privacy-ru.html) · [简体中文](privacy-zh_CN.html) · [فارسی](privacy-fa.html) · [Español](privacy-es.html) · [العربية](privacy-ar.html) · [Português (Brasil)](privacy-pt_BR.html) · [Bahasa Indonesia](privacy-id.html) · [Français](privacy-fr.html)
 
 IP Flag 是一款浏览器扩展程序，用于在本地显示浏览器在互联网上呈现的信息：公共 IPv4/IPv6 地址、网络出口国家/地区和网络组织。
 

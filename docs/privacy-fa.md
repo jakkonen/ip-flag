@@ -2,7 +2,7 @@
 
 تاریخ اجرا: ۱۱ اوت ۲۰۲۶.
 
-[English](privacy.html) · [Русский](privacy-ru.html)
+[English](privacy.html) · [Suomi](privacy-fi.html) · [Русский](privacy-ru.html) · [简体中文](privacy-zh_CN.html) · [فارسی](privacy-fa.html) · [Español](privacy-es.html) · [العربية](privacy-ar.html) · [Português (Brasil)](privacy-pt_BR.html) · [Bahasa Indonesia](privacy-id.html) · [Français](privacy-fr.html)
 
 IP Flag یک افزونهٔ مرورگر است که به‌صورت محلی نشان می‌دهد مرورگر در اینترنت چگونه دیده می‌شود: نشانی‌های عمومی IPv4/IPv6، کشور خروج و سازمان شبکه.
 

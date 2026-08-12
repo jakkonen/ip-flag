@@ -2,7 +2,7 @@
 
 Дата вступления в силу: 11 августа 2026 года.
 
-[English](privacy.html) · [Suomi](privacy-fi.html)
+[English](privacy.html) · [Suomi](privacy-fi.html) · [Русский](privacy-ru.html) · [简体中文](privacy-zh_CN.html) · [فارسی](privacy-fa.html) · [Español](privacy-es.html) · [العربية](privacy-ar.html) · [Português (Brasil)](privacy-pt_BR.html) · [Bahasa Indonesia](privacy-id.html) · [Français](privacy-fr.html)
 
 IP Flag — браузерное расширение для локального отображения того, как браузер выглядит в интернете: публичных IPv4/IPv6-адресов, страны выхода в интернет и сетевой организации.
 

@@ -2,7 +2,7 @@
 
 تاريخ السريان: 11 أغسطس 2026.
 
-[English](privacy.html) · [Русский](privacy-ru.html)
+[English](privacy.html) · [Suomi](privacy-fi.html) · [Русский](privacy-ru.html) · [简体中文](privacy-zh_CN.html) · [فارسی](privacy-fa.html) · [Español](privacy-es.html) · [العربية](privacy-ar.html) · [Português (Brasil)](privacy-pt_BR.html) · [Bahasa Indonesia](privacy-id.html) · [Français](privacy-fr.html)
 
 IP Flag هي إضافة للمتصفح تعرض محلياً كيفية ظهور المتصفح على الإنترنت: عناوين IPv4/IPv6 العامة وبلد الخروج ومؤسسة الشبكة.
 

@@ -2,7 +2,7 @@
 
 Tanggal berlaku: 11 Agustus 2026.
 
-[English](privacy.html) · [Русский](privacy-ru.html)
+[English](privacy.html) · [Suomi](privacy-fi.html) · [Русский](privacy-ru.html) · [简体中文](privacy-zh_CN.html) · [فارسی](privacy-fa.html) · [Español](privacy-es.html) · [العربية](privacy-ar.html) · [Português (Brasil)](privacy-pt_BR.html) · [Bahasa Indonesia](privacy-id.html) · [Français](privacy-fr.html)
 
 IP Flag adalah ekstensi browser yang secara lokal menampilkan bagaimana browser terlihat di internet: alamat IPv4/IPv6 publik, negara keluar, dan organisasi jaringan.
 

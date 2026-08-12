@@ -2,7 +2,7 @@
 
 Voimassa 11. elokuuta 2026 alkaen.
 
-[English](privacy.html) · [Русский](privacy-ru.html)
+[English](privacy.html) · [Suomi](privacy-fi.html) · [Русский](privacy-ru.html) · [简体中文](privacy-zh_CN.html) · [فارسی](privacy-fa.html) · [Español](privacy-es.html) · [العربية](privacy-ar.html) · [Português (Brasil)](privacy-pt_BR.html) · [Bahasa Indonesia](privacy-id.html) · [Français](privacy-fr.html)
 
 IP Flag on selainlaajennus, joka näyttää paikallisesti, miltä selain näkyy internetissä: sen julkiset IPv4/IPv6-osoitteet, internet-yhteyden lähtömaan ja verkko-organisaation.
 

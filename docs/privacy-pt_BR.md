@@ -2,7 +2,7 @@
 
 Data de vigência: 11 de agosto de 2026.
 
-[English](privacy.html) · [Русский](privacy-ru.html)
+[English](privacy.html) · [Suomi](privacy-fi.html) · [Русский](privacy-ru.html) · [简体中文](privacy-zh_CN.html) · [فارسی](privacy-fa.html) · [Español](privacy-es.html) · [العربية](privacy-ar.html) · [Português (Brasil)](privacy-pt_BR.html) · [Bahasa Indonesia](privacy-id.html) · [Français](privacy-fr.html)
 
 IP Flag é uma extensão de navegador que mostra localmente como o navegador aparece na Internet: endereços IPv4/IPv6 públicos, país de saída e organização de rede.
 
