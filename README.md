@@ -15,6 +15,7 @@ IP Flag answers one question at a glance: **from which country does this browser
 - automatic refresh with a configurable interval (default: 5 minutes);
 - manual refresh;
 - local check history and optional change notifications;
+- unavailable public-IP checks are shown in the popup but are not stored as history events;
 - round and rectangular flags generated locally from the same SVG source;
 - no analytics, account, cloud sync, browsing-history access, or content-script access.
 
@@ -48,6 +49,28 @@ IP Flag answers one question at a glance: **from which country does this browser
 The extension first determines IPv4/IPv6, then performs GeoIP only for IP addresses that are not already present in the local 24-hour cache.
 
 ## Development
+
+### Requirements
+
+- Node.js `20.19.0` or newer (or Node.js `22.12.0` or newer)
+- npm, supplied with Node.js
+
+The project has no required system services, developer backend, API keys, or environment variables.
+
+### Reproducible Firefox build
+
+From the root of this source archive:
+
+```bash
+npm ci
+npm run typecheck
+npm test
+npm run build:firefox
+```
+
+The reproducible Firefox extension is written to `dist/firefox`. Package the *contents* of that folder so that `manifest.json` is at the root of the resulting ZIP file.
+
+### General development
 
 ```bash
 npm install

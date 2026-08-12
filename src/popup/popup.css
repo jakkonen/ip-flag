@@ -99,6 +99,22 @@ select {
   font-size: 12px;
 }
 
+.change-notice {
+  margin-top: 10px;
+  padding: 8px 10px;
+  border: 1px solid color-mix(in srgb, #2563eb 60%, transparent);
+  border-radius: 9px;
+  background: color-mix(in srgb, #2563eb 10%, transparent);
+  color: color-mix(in srgb, CanvasText 88%, #2563eb);
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.change-notice[data-change='country'] {
+  border-color: color-mix(in srgb, #c2410c 60%, transparent);
+  background: color-mix(in srgb, #c2410c 10%, transparent);
+}
+
 .addresses {
   display: grid;
   gap: 10px;
@@ -170,6 +186,26 @@ select {
 .copy-button:disabled {
   opacity: 0.45;
   cursor: default;
+}
+
+.network-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 4px;
+}
+
+.network-detail {
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: color-mix(in srgb, CanvasText 8%, transparent);
+  color: color-mix(in srgb, CanvasText 68%, transparent);
+  font-size: 10px;
+}
+
+.network-detail--warning {
+  background: color-mix(in srgb, #d97706 16%, transparent);
+  color: #a84f00;
 }
 
 .footer {
@@ -261,6 +297,18 @@ select {
   gap: 6px;
 }
 
+.history-entry__address {
+  min-width: 0;
+  margin-left: auto;
+  overflow: hidden;
+  text-align: right;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: color-mix(in srgb, CanvasText 75%, transparent);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 11px;
+}
+
 .history-entry__trigger {
   display: inline-block;
   padding: 1px 4px;
@@ -271,7 +319,6 @@ select {
 }
 
 .history-entry__change {
-  margin-top: 2px;
   color: #a84f00;
   font-weight: 650;
 }

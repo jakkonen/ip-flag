@@ -23,6 +23,8 @@
         IPv4 and IPv6 are exiting through different countries.
       </section>
 
+      <section id="change-notice" class="change-notice hidden"></section>
+
       <section class="addresses">
         <article id="ipv4-card" class="ip-card">
           <div class="ip-card__head">
@@ -35,6 +37,7 @@
             <button id="ipv4-copy" class="copy-button" type="button" disabled>Copy</button>
           </div>
           <div id="ipv4-network" class="network"></div>
+          <div id="ipv4-network-details" class="network-details"></div>
         </article>
 
         <article id="ipv6-card" class="ip-card">
@@ -48,6 +51,7 @@
             <button id="ipv6-copy" class="copy-button" type="button" disabled>Copy</button>
           </div>
           <div id="ipv6-network" class="network"></div>
+          <div id="ipv6-network-details" class="network-details"></div>
         </article>
       </section>
 
@@ -61,6 +65,7 @@
               <option value="rectangle">Rectangle</option>
             </select>
           </label>
+          <button id="clear-geo-cache" class="text-button" type="button">Clear location cache</button>
         </section>
 
         <details class="settings-section" open>
@@ -81,6 +86,7 @@
           </label>
           <label class="toggle-control"><input id="notify-ip-change" type="checkbox" /> Notify when IP changes</label>
           <label class="toggle-control"><input id="notify-country-change" type="checkbox" /> Notify when country changes</label>
+          <button id="test-notification" class="text-button" type="button">Test notification</button>
         </details>
 
         <details class="history-section" open>

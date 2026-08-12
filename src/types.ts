@@ -8,6 +8,11 @@ export interface GeoInfo {
   countryName?: string;
   asn?: number;
   organization?: string;
+  networkType?: string;
+  isDatacenter?: boolean;
+  isVpn?: boolean;
+  isProxy?: boolean;
+  isTor?: boolean;
   checkedAt: number;
 }
 
@@ -22,12 +27,17 @@ export interface NetworkState {
   ipv6?: IpState;
   checkedAt: number;
   status: NetworkStatus;
+  lastChange?: {
+    at: number;
+    type: 'ip' | 'country';
+  };
 }
 
 export interface CachedGeoInfo extends GeoInfo {
   countryCode: string;
   countryName: string;
   lastUsedAt: number;
+  cacheVersion: 5;
 }
 
 export interface UserSettings {
@@ -61,4 +71,7 @@ export type RuntimeMessage =
   | { type: 'REFRESH'; force?: boolean }
   | { type: 'SET_SETTINGS'; settings: UserSettings }
   | { type: 'GET_HISTORY' }
-  | { type: 'CLEAR_HISTORY' };
+  | { type: 'CLEAR_HISTORY' }
+  | { type: 'CLEAR_GEO_CACHE' }
+  | { type: 'TEST_NOTIFICATION' }
+  | { type: 'ACKNOWLEDGE_CHANGE' };

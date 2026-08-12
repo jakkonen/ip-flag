@@ -6,6 +6,7 @@ const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as 
 
 const statusEl = $('status');
 const warningEl = $('warning');
+const changeNoticeEl = $('change-notice');
 const checkedEl = $('checked');
 const refreshButton = $<HTMLButtonElement>('refresh');
 const flagStyle = $<HTMLSelectElement>('flag-style');
@@ -17,8 +18,10 @@ const refreshInterval = $<HTMLSelectElement>('refresh-interval');
 const refreshIntervalControl = $('refresh-interval-control');
 const notifyIpChange = $<HTMLInputElement>('notify-ip-change');
 const notifyCountryChange = $<HTMLInputElement>('notify-country-change');
+const testNotificationButton = $<HTMLButtonElement>('test-notification');
 const historyEl = $('history');
 const clearHistoryButton = $<HTMLButtonElement>('clear-history');
+const clearGeoCacheButton = $<HTMLButtonElement>('clear-geo-cache');
 
 const DEFAULT_SETTINGS: UserSettings = {
   flagStyle: 'round',
@@ -43,6 +46,22 @@ function formatNetwork(ip?: IpState): string {
   return parts.join(' · ');
 }
 
+function formatLocation(ip?: Pick<IpState, 'countryName'>): string {
+  if (!ip?.countryName) return 'Country unavailable';
+  return ip.countryName;
+}
+
+function networkDetails(ip?: IpState): string[] {
+  if (!ip) return [];
+  const details: string[] = [];
+  if (ip.networkType && ip.networkType !== 'isp') details.push(ip.networkType);
+  if (ip.isDatacenter) details.push('Data center');
+  if (ip.isVpn) details.push('VPN detected');
+  if (ip.isProxy) details.push('Proxy detected');
+  if (ip.isTor) details.push('Tor detected');
+  return details;
+}
+
 function renderIp(prefix: 'ipv4' | 'ipv6', ip: IpState | undefined, style: FlagStyle): void {
   const flag = $<HTMLImageElement>(`${prefix}-flag`);
   const card = $(`${prefix}-card`);
@@ -50,6 +69,7 @@ function renderIp(prefix: 'ipv4' | 'ipv6', ip: IpState | undefined, style: FlagS
   const address = $(`${prefix}-address`);
   const copyButton = $<HTMLButtonElement>(`${prefix}-copy`);
   const network = $(`${prefix}-network`);
+  const networkDetailsEl = $(`${prefix}-network-details`);
 
   if (!ip) {
     card.classList.add('ip-card--unavailable');
@@ -60,6 +80,7 @@ function renderIp(prefix: 'ipv4' | 'ipv6', ip: IpState | undefined, style: FlagS
     copyButton.disabled = true;
     copyButton.hidden = true;
     network.textContent = '';
+    networkDetailsEl.replaceChildren();
     return;
   }
 
@@ -72,14 +93,18 @@ function renderIp(prefix: 'ipv4' | 'ipv6', ip: IpState | undefined, style: FlagS
   } else {
     flag.classList.add('hidden');
   }
-  country.textContent = ip.countryName && ip.countryCode
-    ? `${ip.countryName} · ${ip.countryCode}`
-    : 'Country unavailable';
+  country.textContent = formatLocation(ip);
   address.textContent = ip.address;
   address.dataset.value = ip.address;
   copyButton.disabled = false;
   copyButton.hidden = false;
   network.textContent = formatNetwork(ip);
+  networkDetailsEl.replaceChildren(...networkDetails(ip).map((detail) => {
+    const badge = document.createElement('span');
+    badge.className = `network-detail${detail.includes('detected') ? ' network-detail--warning' : ''}`;
+    badge.textContent = detail;
+    return badge;
+  }));
 }
 
 function statusText(state: NetworkState): string {
@@ -101,6 +126,16 @@ function render(state: NetworkState): void {
   statusEl.textContent = statusText(state);
   statusEl.dataset.status = state.status;
   warningEl.classList.toggle('hidden', state.status !== 'mismatch');
+  if (state.lastChange) {
+    const label = state.lastChange.type === 'country' ? 'Exit country changed' : 'Public IP changed';
+    changeNoticeEl.textContent = `${label} at ${new Date(state.lastChange.at).toLocaleTimeString([], {
+      hour: '2-digit', minute: '2-digit', second: '2-digit'
+    })}`;
+    changeNoticeEl.dataset.change = state.lastChange.type;
+    changeNoticeEl.classList.remove('hidden');
+  } else {
+    changeNoticeEl.classList.add('hidden');
+  }
   renderIp('ipv4', state.ipv4, style);
   renderIp('ipv6', state.ipv6, style);
   checkedEl.textContent = `Checked ${new Date(state.checkedAt).toLocaleTimeString([], {
@@ -205,6 +240,7 @@ function renderHistory(history: CheckHistoryEntry[]): void {
     trigger.className = 'history-entry__trigger';
     trigger.textContent = triggerLabel(entry.trigger ?? 'manual');
     const detail = document.createElement('div');
+    detail.className = 'history-entry__address';
     detail.textContent = describeHistory(entry);
     const countries = document.createElement('div');
     countries.className = 'history-entry__countries';
@@ -214,17 +250,17 @@ function renderHistory(history: CheckHistoryEntry[]): void {
       flag.src = flagUrl(country.countryCode, currentSettings.flagStyle);
       flag.alt = country.countryCode;
       const label = document.createElement('span');
-      label.textContent = country.countryName
-        ? `${country.countryName} · ${country.countryCode}`
-        : country.countryCode;
+      label.textContent = formatLocation(country);
       const source = document.createElement('span');
       source.className = 'history-entry__source';
       source.textContent = country.geoSource === 'request' ? 'GeoIP request' : 'GeoIP cache';
       countries.append(flag, label, source);
     }
-    header.append(time, trigger);
-    row.append(header, detail, countries);
-    if (Object.values(entry.changes).some(Boolean)) detail.className = 'history-entry__change';
+    header.append(time, trigger, detail);
+    row.append(header, countries);
+    if (Object.values(entry.changes).some(Boolean)) {
+      detail.classList.add('history-entry__change');
+    }
     historyEl.append(row);
   }
 }
@@ -243,6 +279,7 @@ async function load(): Promise<void> {
     const history = await send<CheckHistoryEntry[]>({ type: 'GET_HISTORY' });
     render(state);
     renderHistory(history);
+    await send({ type: 'ACKNOWLEDGE_CHANGE' });
   } catch {
     showError();
   }
@@ -278,6 +315,39 @@ for (const control of [flagStyle, refreshOnStartup, refreshOnPopupOpen, refreshO
 clearHistoryButton.addEventListener('click', async () => {
   await send({ type: 'CLEAR_HISTORY' });
   renderHistory([]);
+});
+
+clearGeoCacheButton.addEventListener('click', async () => {
+  clearGeoCacheButton.disabled = true;
+  try {
+    await send({ type: 'CLEAR_GEO_CACHE' });
+    const state = await send<NetworkState>({ type: 'REFRESH', force: true });
+    render(state);
+    renderHistory(await send<CheckHistoryEntry[]>({ type: 'GET_HISTORY' }));
+    clearGeoCacheButton.textContent = 'Location cache cleared';
+  } catch {
+    clearGeoCacheButton.textContent = 'Could not clear cache';
+  } finally {
+    setTimeout(() => {
+      clearGeoCacheButton.textContent = 'Clear location cache';
+      clearGeoCacheButton.disabled = false;
+    }, 1_500);
+  }
+});
+
+testNotificationButton.addEventListener('click', async () => {
+  testNotificationButton.disabled = true;
+  try {
+    await send({ type: 'TEST_NOTIFICATION' });
+    testNotificationButton.textContent = 'Sent';
+  } catch {
+    testNotificationButton.textContent = 'Failed';
+  } finally {
+    setTimeout(() => {
+      testNotificationButton.textContent = 'Test notification';
+      testNotificationButton.disabled = false;
+    }, 1_500);
+  }
 });
 
 for (const prefix of ['ipv4', 'ipv6'] as const) {

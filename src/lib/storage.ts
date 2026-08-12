@@ -5,7 +5,8 @@ const KEYS = {
   currentState: 'currentState',
   geoCache: 'geoCache',
   settings: 'settings',
-  checkHistory: 'checkHistory'
+  checkHistory: 'checkHistory',
+  acknowledgedChangeAt: 'acknowledgedChangeAt'
 } as const;
 
 const MAX_HISTORY_ENTRIES = 200;
@@ -39,6 +40,10 @@ export async function setGeoCache(cache: Record<string, CachedGeoInfo>): Promise
   await browser.storage.local.set({ [KEYS.geoCache]: cache });
 }
 
+export async function clearGeoCache(): Promise<void> {
+  await browser.storage.local.remove(KEYS.geoCache);
+}
+
 export async function getSettings(): Promise<UserSettings> {
   const result = await browser.storage.local.get(KEYS.settings);
   return {
@@ -64,4 +69,13 @@ export async function addCheckHistory(entry: CheckHistoryEntry): Promise<void> {
 
 export async function clearCheckHistory(): Promise<void> {
   await browser.storage.local.remove(KEYS.checkHistory);
+}
+
+export async function getAcknowledgedChangeAt(): Promise<number | undefined> {
+  const result = await browser.storage.local.get(KEYS.acknowledgedChangeAt);
+  return result[KEYS.acknowledgedChangeAt] as number | undefined;
+}
+
+export async function acknowledgeChange(at: number): Promise<void> {
+  await browser.storage.local.set({ [KEYS.acknowledgedChangeAt]: at });
 }

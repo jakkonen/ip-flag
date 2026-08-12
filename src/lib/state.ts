@@ -5,7 +5,7 @@ import { getGeoInfo } from './geo';
 import { updateAction } from './icon';
 import { getPublicIp } from './network';
 import { calculateStatus } from './status';
-import { addCheckHistory, getCurrentState, getSettings, setCurrentState } from './storage';
+import { addCheckHistory, getCheckHistory, getCurrentState, getSettings, setCurrentState } from './storage';
 
 let inFlight: Promise<NetworkState> | undefined;
 
@@ -13,7 +13,23 @@ function hasChanged(previous: string | undefined, next: string | undefined): boo
   return Boolean(previous && next && previous !== next);
 }
 
-function toHistoryEntry(previous: NetworkState | undefined, state: NetworkState, trigger: CheckTrigger): CheckHistoryEntry {
+function lastKnownState(
+  previous: NetworkState | undefined,
+  history: CheckHistoryEntry[],
+  family: IpFamily
+): Pick<IpState, 'address' | 'countryCode'> | undefined {
+  if (previous?.[family]) return previous[family];
+  return history.find((entry) => entry[family])?.[family];
+}
+
+function toHistoryEntry(
+  previous: NetworkState | undefined,
+  history: CheckHistoryEntry[],
+  state: NetworkState,
+  trigger: CheckTrigger
+): CheckHistoryEntry {
+  const previousIpv4 = lastKnownState(previous, history, 'ipv4');
+  const previousIpv6 = lastKnownState(previous, history, 'ipv6');
   return {
     checkedAt: state.checkedAt,
     trigger,
@@ -31,12 +47,39 @@ function toHistoryEntry(previous: NetworkState | undefined, state: NetworkState,
       geoSource: state.ipv6.geoSource
     },
     changes: {
-      ipv4Address: hasChanged(previous?.ipv4?.address, state.ipv4?.address),
-      ipv6Address: hasChanged(previous?.ipv6?.address, state.ipv6?.address),
-      ipv4Country: hasChanged(previous?.ipv4?.countryCode, state.ipv4?.countryCode),
-      ipv6Country: hasChanged(previous?.ipv6?.countryCode, state.ipv6?.countryCode)
+      ipv4Address: hasChanged(previousIpv4?.address, state.ipv4?.address),
+      ipv6Address: hasChanged(previousIpv6?.address, state.ipv6?.address),
+      ipv4Country: hasChanged(previousIpv4?.countryCode, state.ipv4?.countryCode),
+      ipv6Country: hasChanged(previousIpv6?.countryCode, state.ipv6?.countryCode)
     }
   };
+}
+
+function changeFromEntry(entry: CheckHistoryEntry): NetworkState['lastChange'] | undefined {
+  if (entry.changes.ipv4Country || entry.changes.ipv6Country) {
+    return { at: entry.checkedAt, type: 'country' };
+  }
+  if (entry.changes.ipv4Address || entry.changes.ipv6Address) {
+    return { at: entry.checkedAt, type: 'ip' };
+  }
+  return undefined;
+}
+
+async function createNotification(title: string, message: string, countryCode?: string): Promise<void> {
+  const iconPath = countryCode
+    ? `flags/round/32/${countryCode.toLowerCase()}.png`
+    : 'icons/icon-128.png';
+
+  await browser.notifications.create(`network-change-${Date.now()}`, {
+    type: 'basic',
+    iconUrl: browser.runtime.getURL(iconPath),
+    title,
+    message
+  });
+}
+
+export async function showTestNotification(): Promise<void> {
+  await createNotification('My IP — VPN Location', 'Notifications are working.');
 }
 
 async function notifyChanges(entry: CheckHistoryEntry): Promise<void> {
@@ -50,13 +93,17 @@ async function notifyChanges(entry: CheckHistoryEntry): Promise<void> {
   if (settings.notifyIpChange && changedIp) parts.push('Public IP changed');
   if (settings.notifyCountryChange && changedCountry) parts.push('Exit country changed');
 
+  const changedCountryCode = entry.changes.ipv4Country
+    ? entry.ipv4?.countryCode
+    : entry.changes.ipv6Country
+      ? entry.ipv6?.countryCode
+      : entry.ipv4?.countryCode ?? entry.ipv6?.countryCode;
+  const countryName = entry.ipv4?.countryName ?? entry.ipv6?.countryName;
+  const address = entry.ipv4?.address ?? entry.ipv6?.address;
+  const detail = [address, countryName].filter(Boolean).join(' · ');
+
   try {
-    await browser.notifications.create({
-      type: 'basic',
-      iconUrl: 'icons/icon-128.png',
-      title: 'My IP — VPN Location',
-      message: parts.join(' · ')
-    });
+    await createNotification('My IP — VPN Location', [parts.join(' · '), detail].filter(Boolean).join('\n'), changedCountryCode);
   } catch {
     // Уведомление не должно отменять успешно завершённую проверку IP.
   }
@@ -87,13 +134,18 @@ async function refreshInternal(force: boolean, trigger: CheckTrigger): Promise<N
     ipv4,
     ipv6,
     checkedAt: Date.now(),
-    status: calculateStatus(ipv4, ipv6)
+    status: calculateStatus(ipv4, ipv6),
+    lastChange: cached?.lastChange
   };
 
+  if (state.status !== 'offline') {
+    const history = await getCheckHistory();
+    const entry = toHistoryEntry(cached, history, state, trigger);
+    state.lastChange = changeFromEntry(entry) ?? state.lastChange;
+    await addCheckHistory(entry);
+    await notifyChanges(entry);
+  }
   await setCurrentState(state);
-  const entry = toHistoryEntry(cached, state, trigger);
-  await addCheckHistory(entry);
-  await notifyChanges(entry);
   await updateAction(state);
   return state;
 }

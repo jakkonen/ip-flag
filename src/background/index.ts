@@ -2,8 +2,8 @@ import browser from '../lib/browser';
 import { CONFIG } from '../config';
 import type { RuntimeMessage } from '../types';
 import { updateAction } from '../lib/icon';
-import { refreshNetworkState } from '../lib/state';
-import { clearCheckHistory, getCheckHistory, getCurrentState, getSettings, setSettings } from '../lib/storage';
+import { refreshNetworkState, showTestNotification } from '../lib/state';
+import { acknowledgeChange, clearCheckHistory, clearGeoCache, getCheckHistory, getCurrentState, getSettings, setSettings } from '../lib/storage';
 
 const ALARM_NAME = 'refresh-public-ip';
 
@@ -79,6 +79,23 @@ browser.runtime.onMessage.addListener(async (message: RuntimeMessage) => {
     case 'CLEAR_HISTORY':
       await clearCheckHistory();
       return { ok: true };
+
+    case 'CLEAR_GEO_CACHE':
+      await clearGeoCache();
+      return { ok: true };
+
+    case 'TEST_NOTIFICATION':
+      await showTestNotification();
+      return { ok: true };
+
+    case 'ACKNOWLEDGE_CHANGE': {
+      const state = await getCurrentState();
+      if (state?.lastChange) {
+        await acknowledgeChange(state.lastChange.at);
+        await updateAction(state);
+      }
+      return { ok: true };
+    }
   }
 });
 

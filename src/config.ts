@@ -5,7 +5,7 @@ export const CONFIG = {
   },
   geo: {
     baseUrl: 'https://api.ipapi.is',
-    cacheTtlMs: 24 * 60 * 60 * 1000,
+    cacheTtlMs: 3 * 24 * 60 * 60 * 1000,
     maxEntries: 50
   },
   refresh: {
